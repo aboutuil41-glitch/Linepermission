@@ -4,11 +4,12 @@ import ma.youcode.lineperm.models.User;
 import java.util.*;
 public class ConsoleApp {
 
+    UserService service = new UserService();
+    Scanner scanner = new Scanner(System.in);
     User user = null;
 
     public void startConsole(){
-        UserService service = new UserService();
-        Scanner scanner = new Scanner(System.in);
+
         System.out.println("==============================================");
         System.out.println("         Welcome To LinePermission!!          ");
         System.out.println("==============================================");
@@ -16,12 +17,7 @@ public class ConsoleApp {
 
 
     while(true){
-        if (user == null) {
-            System.out.print("lineperm> ");
-        }
-        else{
-            System.err.print(user.getName() + "@lineperm> ");
-        }
+        System.out.print("lineperm> ");
         String option = scanner.nextLine();
         switch (option) {
             case "login":
@@ -36,6 +32,10 @@ public class ConsoleApp {
                 user = service.login(Login, Password);
                 if(user == null){
                     System.out.println("Wrong Password");
+                }
+                if(user != null){
+                    System.out.println("Welcome " + user.getName() + " To LinePerm");
+                    LoggedIn(user);
                 }
                 break;
             case "signup":
@@ -65,6 +65,36 @@ public class ConsoleApp {
         }
 
 
+        }
+    }
+
+    public void LoggedIn(User user){
+        while (true) {
+            String name = user.getName();
+            System.out.print(name +"@lineperma>" );
+            String choice = scanner.nextLine();
+
+            switch (choice.toLowerCase().trim()) {
+                case "login":
+                if(user != null){
+                    System.err.println("Already Logged In.");
+                    break;
+                }
+                case "signup":
+                if(user != null){
+                    System.err.println("Already Logged In.");
+                    break;
+                }
+                case "help":
+                    System.out.println("Not available");
+                    break;
+                case "logout":
+                        System.out.println("LoggingOut");
+                        return;
+                default:
+                    System.out.println("Doesn't Exist Type 'help' for help");
+                    break;
+            }
         }
     }
 }
