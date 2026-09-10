@@ -1,4 +1,6 @@
 package ma.youcode.lineperm.service;
+import java.io.FileWriter;
+import java.io.IOException;
 public class FileService {
             public void saveFile(FileRecord files) {
         try (FileWriter writer = new FileWriter("C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\files.txt", true)) {
