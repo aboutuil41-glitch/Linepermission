@@ -51,7 +51,7 @@ public class UserService {
         User Check = findByName(Name);
         if (Check == null) {
             saveUser(user);
-            System.exit(0);
+            return;
         }
         System.out.println("User Already exists!");
     }
