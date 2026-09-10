@@ -1,6 +1,18 @@
 package ma.youcode.lineperm.service;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+
+import ma.youcode.lineperm.models.FileRecord;
+import ma.youcode.lineperm.models.User;
+
 public class FileService {
             public void saveFile(FileRecord files) {
         try (FileWriter writer = new FileWriter("C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\files.txt", true)) {
@@ -18,10 +30,12 @@ public class FileService {
         // Specify the path to your file
         String filePath = "C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\files.txt";
 
+        // Try-with-resources automatically closes the resources
         try (FileReader fr = new FileReader(filePath);
              BufferedReader br = new BufferedReader(fr)) {
 
             String line;
+            // Read the file line by line until the end (null)
             while ((line = br.readLine()) != null) {
                 String[] splits = line.split(",");
                 FileRecord files = new FileRecord().setName(splits[0]).setBelongsTo(splits[1]);
