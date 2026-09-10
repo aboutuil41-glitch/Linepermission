@@ -11,7 +11,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class UserService {
         public void saveUser(User user) {
-        try (FileWriter writer = new FileWriter("C:\\Users\\pc\\Documents\\TESTING\\user.txt", true)) {
+        try (FileWriter writer = new FileWriter("C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\user.txt", true)) {
             writer.write(user.getName() + "," + user.getPassword());
             writer.write(System.lineSeparator());
             System.out.println("Successfully written to the file.");
@@ -24,7 +24,7 @@ public class UserService {
     public Map<String, User> loadUser() {
         Map<String, User> users = new HashMap<>();
         // Specify the path to your file
-        String filePath = "C:\\Users\\pc\\Documents\\TESTING\\user.txt";
+        String filePath = "C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\user.txt";
 
         // Try-with-resources automatically closes the resources
         try (FileReader fr = new FileReader(filePath);
