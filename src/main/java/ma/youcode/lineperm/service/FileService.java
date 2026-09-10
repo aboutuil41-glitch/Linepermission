@@ -33,4 +33,16 @@ public class FileService {
         }
         return filesMap;
     }
+    public void createFile(String name, User user){
+        FileRecord file = new FileRecord().setName(name).setBelongsTo(user.getName());
+        Path path = Paths.get("C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\FilesStorage\\" + name + ".txt");
+        try {
+            Path newFile = Files.createFile(path);
+            System.out.println("File created successfully at: " + newFile.toAbsolutePath());
+            saveFile(file);
+        } catch (IOException e) {
+            System.err.println("Failed to create file: " + e.getMessage());
+        }
+
+    }
 }
