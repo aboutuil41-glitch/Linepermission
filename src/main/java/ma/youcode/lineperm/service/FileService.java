@@ -33,6 +33,12 @@ public class FileService {
         }
         return filesMap;
     }
+
+    public FileRecord findFile(String Name){
+        Map<String, FileRecord> files = loadFiles();
+        return files.get(Name.trim().toLowerCase());
+    }
+
     public void createFile(String name, User user){
         FileRecord file = new FileRecord().setName(name).setBelongsTo(user.getName());
         Path path = Paths.get("C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\FilesStorage\\" + name + ".txt");
