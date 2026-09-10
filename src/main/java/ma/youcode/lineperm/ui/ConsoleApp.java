@@ -13,103 +13,123 @@ public class ConsoleApp {
     User user = null;
 
     public void startConsole(){
-
         System.out.println("==============================================");
         System.out.println("         Welcome To LinePermission!!          ");
         System.out.println("==============================================");
         System.out.println("\nWhat You Gonna Do?? | Login | Sign Up | Exit");
 
+        while(true){
+            System.out.print(prompt());
+            String line = scanner.nextLine();
+            process(line);
+        }
+    }
 
-    while(true){
-        System.out.print("lineperm> ");
-        String option = scanner.nextLine();
-        switch (option) {
+    private String prompt(){
+        return user == null ? "lineperm> " : user.getName() + "@lineperma>";
+    }
+
+    private void process(String line){
+        line = line.trim();
+        if (line.isEmpty()) return;
+
+        String[] words = line.split("\\s+");
+        String command = words[0].toLowerCase();
+
+        if (user == null && needsLogin(command)) {
+            System.out.println("You must be logged in...");
+            return;
+        }
+
+        if (user != null && (command.equals("login") || command.equals("signup"))) {
+            System.out.println("You're already logged in...");
+            return;
+        }
+
+        switch (command) {
             case "login":
-                if(user != null){
-                    System.err.println("Already Logged In.");
-                    break;
-                }
-                System.out.print("Login: ");
-                String Login = scanner.nextLine();
-                System.out.print("Password: ");
-                String Password = scanner.nextLine();
-                user = service.login(Login, Password);
-                if(user == null){
-                    System.out.println("Wrong Password");
-                }
-                if(user != null){
-                    System.out.println("Welcome " + user.getName() + " To LinePerm");
-                    LoggedIn(user);
-                }
+                login();
                 break;
             case "signup":
-                if(user != null){
-                    System.err.println("Already Logged In.");
-                    break;
-                }
-                System.out.print("Enter Login Name: ");
-                String Name = scanner.nextLine();
-                System.out.print("Enter Your Password: ");
-                String NewPassword = scanner.nextLine();
-                service.createUser(Name, NewPassword);
+                signup();
                 break;
             case "exit":
                 System.exit(0);
                 break;
             case "logout":
-                if(user == null){
-                    System.out.println("You're not Even Logged In.");
-                }
-                user = null;
-            break;
-        
+                logout();
+                break;
+            case "ls":
+                listFiles();
+                break;
+            case "nano":
+                nano(words[1], user);
+                break;
+            case "cat":
+                cat(words[1]);
+                break;
+            case "help":
+                System.out.println("Commands: nano <file>.txt | ls | cat <file>.txt | logout | help");
+                break;
             default:
-                System.out.println("Invalid Option.");
+                System.out.println("Doesn't Exist Type 'help' for help");
                 break;
         }
+    }
 
+    private boolean needsLogin(String command){
+        return !(command.equals("login") || command.equals("signup") || command.equals("exit"));
+    }
 
+    private void login(){
+        System.out.print("Login: ");
+        String Login = scanner.nextLine();
+        System.out.print("Password: ");
+        String Password = scanner.nextLine();
+        user = service.login(Login, Password);
+        if(user == null){
+            System.out.println("Wrong Password");
+        } else {
+            System.out.println("Welcome " + user.getName() + " To LinePerm");
         }
     }
 
-    public void LoggedIn(User user){
+    private void signup(){
+        System.out.print("Enter Login Name: ");
+        String Name = scanner.nextLine();
+        System.out.print("Enter Your Password: ");
+        String NewPassword = scanner.nextLine();
+        service.createUser(Name, NewPassword);
+    }
+
+    private void logout(){
+        System.out.println("LoggingOut");
+        user = null;
+    }
+
+    private void listFiles(){
+        Map<String, FileRecord> allFiles = fileService.loadFiles();
+        for (FileRecord f : allFiles.values()) {
+            System.out.println("rwd|" + f.getShare() + " " + f.getName() + " Owner : " + f.getBelongsTo());
+        }
+    }
+
+    private void nano(String fileName, User user){
+        fileName = fileName.replace(".txt", "").trim();
+        fileService.createFile(fileName, user);
+
+        List<String> lines = new ArrayList<>();
         while (true) {
-            String name = user.getName();
-            System.out.print(name +"@lineperma>" );
-            String choice = scanner.nextLine();
-
-            switch (choice.toLowerCase().trim()) {
-                case "login":
-                    if(user != null){
-                        System.err.println("Already Logged In.");
-                    }
-                    break;
-                case "signup":
-                    if(user != null){
-                        System.err.println("Already Logged In.");
-                    }
-                    break;
-                case "create file":
-                    System.out.print("File Name: ");
-                    String fileName = scanner.nextLine();
-                    fileService.createFile(fileName, user);
-                    break;
-                case "files":
-                    Map<String, FileRecord> allFiles = fileService.loadFiles();
-                    for (FileRecord f : allFiles.values()) {
-                            System.out.println("rwd|" + f.getShare() + " " + f.getName() + " Owner : " + f.getBelongsTo());
-                    }
-                    break;
-                case "help":
-                    System.out.println("Commands: create file | my files | logout | help");
-                    break;
-                case "logout":
-                        System.out.println("LoggingOut");
-                        return;
-                default:
-                    System.out.println("Doesn't Exist Type 'help' for help");
-                    break;
-            }
+            String inputLine = scanner.nextLine();
+            if (inputLine.equals("EOF")) break;
+            lines.add(inputLine);
         }
+        fileService.writeToFile(fileName, lines);
     }
+
+    private void cat(String fileName){
+        fileName = fileName.replace(".txt", "").trim();
+        fileService.readOutFile(fileName);
+    }
+
 }

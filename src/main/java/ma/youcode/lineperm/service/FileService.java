@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ma.youcode.lineperm.models.FileRecord;
@@ -65,4 +66,36 @@ public class FileService {
         }
 
     }
-}
+
+    public void writeToFile(String fileName, List<String> lines){
+        Path path = Paths.get("C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\FilesStorage\\" + fileName + ".txt");
+        try(FileWriter writer = new FileWriter(path.toFile())) {
+            for(String line: lines){
+                writer.write(line);
+                writer.write(System.lineSeparator());
+            }
+            System.out.println("Content saved to " + fileName + ".txt");
+        } catch (Exception e) {
+            System.err.println("Failed to write please try again later :D.");
+        }
+    }
+
+    public void readOutFile(String fileName){
+                Path path = Paths.get("C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\FilesStorage\\" + fileName + ".txt");
+
+        try {
+
+            List<String> lines = Files.readAllLines(path);
+            
+            for (String line : lines) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading the file: " + e.getMessage());
+        }
+    }
+
+    }
+
+
+
