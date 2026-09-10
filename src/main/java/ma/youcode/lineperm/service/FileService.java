@@ -12,4 +12,25 @@ public class FileService {
             e.printStackTrace();
         }
     }
+
+    public Map<String, FileRecord> loadFiles() {
+        Map<String, FileRecord> filesMap = new HashMap<>();
+        // Specify the path to your file
+        String filePath = "C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\files.txt";
+
+        try (FileReader fr = new FileReader(filePath);
+             BufferedReader br = new BufferedReader(fr)) {
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] splits = line.split(",");
+                FileRecord files = new FileRecord().setName(splits[0]).setBelongsTo(splits[1]);
+                filesMap.put(splits[0].trim().toLowerCase(), files);
+            }
+
+        } catch (IOException e) {
+            System.err.println("An error occurred while reading the file: " + e.getMessage());
+        }
+        return filesMap;
+    }
 }
