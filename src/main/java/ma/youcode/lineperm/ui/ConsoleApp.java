@@ -1,10 +1,14 @@
 package ma.youcode.lineperm.ui;
 import ma.youcode.lineperm.service.UserService;
+import ma.youcode.lineperm.service.FileService;
 import ma.youcode.lineperm.models.User;
+import ma.youcode.lineperm.models.FileRecord;
 import java.util.*;
+
 public class ConsoleApp {
 
     UserService service = new UserService();
+    FileService fileService = new FileService();
     Scanner scanner = new Scanner(System.in);
     User user = null;
 
@@ -54,7 +58,7 @@ public class ConsoleApp {
                 break;
             case "logout":
                 if(user == null){
-                    System.out.println("You Don't Even Logged In.");
+                    System.out.println("You're not Even Logged In.");
                 }
                 user = null;
             break;
@@ -76,17 +80,28 @@ public class ConsoleApp {
 
             switch (choice.toLowerCase().trim()) {
                 case "login":
-                if(user != null){
-                    System.err.println("Already Logged In.");
+                    if(user != null){
+                        System.err.println("Already Logged In.");
+                    }
                     break;
-                }
                 case "signup":
-                if(user != null){
-                    System.err.println("Already Logged In.");
+                    if(user != null){
+                        System.err.println("Already Logged In.");
+                    }
                     break;
-                }
+                case "create file":
+                    System.out.print("File Name: ");
+                    String fileName = scanner.nextLine();
+                    fileService.createFile(fileName, user);
+                    break;
+                case "files":
+                    Map<String, FileRecord> allFiles = fileService.loadFiles();
+                    for (FileRecord f : allFiles.values()) {
+                            System.out.println("rwd|" + f.getShare() + " " + f.getName() + " Owner : " + f.getBelongsTo());
+                    }
+                    break;
                 case "help":
-                    System.out.println("Not available");
+                    System.out.println("Commands: create file | my files | logout | help");
                     break;
                 case "logout":
                         System.out.println("LoggingOut");
