@@ -120,7 +120,8 @@ public class ConsoleApp {
     private void listFiles(){
         Map<String, FileRecord> allFiles = fileService.getAll();
         for (FileRecord f : allFiles.values()) {
-            System.out.println("rwd|" + f.getShare() + " " + f.getName() + " Owner : " + f.getBelongsTo());
+            String[] share = f.getShare();
+            System.out.println("rwd|" + share[0] + share[1] + share[2] + " " + f.getName() + " Owner : " + f.getBelongsTo());
         }
     }
 
