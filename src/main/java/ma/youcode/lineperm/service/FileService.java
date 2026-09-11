@@ -57,6 +57,13 @@ public void loadFiles() {
 
             filesMap.put(splits[0].trim(), files);
         }
+
+    } catch (IOException e) {
+        System.err.println("An error occurred while reading the file: " + e.getMessage());
+    }
+}
+
+    public Map<String, FileRecord> getAll(){
         return filesMap;
     }
 
