@@ -42,7 +42,6 @@ public class UserService {
         } catch (IOException e) {
             System.err.println("An error occurred while reading the file: " + e.getMessage());
         }
-        return users;
     }
 
 
