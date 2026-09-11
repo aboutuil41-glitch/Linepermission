@@ -58,8 +58,7 @@ public class UserService {
 
 
     public User findByName(String Name){
-        Map<String, User> users = loadUser();
-        return users.get(Name.trim().toLowerCase());
+        return users.get(Name.trim());
     }
 
     public boolean checkPassword(String Password, String OgPassword){
