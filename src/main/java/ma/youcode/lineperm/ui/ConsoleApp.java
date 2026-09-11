@@ -135,6 +135,9 @@ public class ConsoleApp {
             lines.add(inputLine);
         }
         fileService.writeToFile(fileName, lines);
+        return ;
+    }
+        System.out.println("No Permission Granted");
     }
 
     private void cat(String fileName){
