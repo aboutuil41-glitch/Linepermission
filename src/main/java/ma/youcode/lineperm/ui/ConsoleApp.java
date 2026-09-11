@@ -127,9 +127,8 @@ public class ConsoleApp {
 
     private void nano(String fileName){
         fileName = fileName.replace(".txt", "").trim();
-        fileService.createFile(fileName, user);
-
-        List<String> lines = new ArrayList<>();
+        if(fileService.CheckW(fileName, user))
+        {List<String> lines = new ArrayList<>();
         while (true) {
             String inputLine = scanner.nextLine();
             if (inputLine.equals("EOF")) break;
