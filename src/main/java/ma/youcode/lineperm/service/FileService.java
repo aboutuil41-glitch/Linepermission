@@ -132,6 +132,19 @@ public void loadFiles() {
             return false;
         }
     }
+    public boolean CheckW(String fileName, User user){
+        FileRecord file = findFile(fileName);
+        String[] share = file.getShare();
+        if(file.getBelongsTo().equals(user.getName())){
+            return true;
+        }
+        else if(share[1].equals("w")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     }
 
 
