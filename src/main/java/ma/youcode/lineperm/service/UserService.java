@@ -67,10 +67,11 @@ public class UserService {
 
     public User login(String Name, String Password){
         User user = findByName(Name);
-        if(user == null){
-            System.out.println("User Doesn't Exist!!");
-            return null;
-        }
+        System.out.println(user.getName());
+        // if(user == null){
+        //     System.out.println("User Doesn't Exist!!");
+        //     return null;
+        // }
         boolean checkPassword = checkPassword(Password, user.getPassword());
 
         if (checkPassword) {
