@@ -18,6 +18,9 @@ public class ConsoleApp {
         System.out.println("==============================================");
         System.out.println("\nWhat You Gonna Do?? | Login | Sign Up | Exit");
 
+        service.loadUser();
+        fileService.loadFiles();
+
         while(true){
             System.out.print(prompt());
             String line = scanner.nextLine();
