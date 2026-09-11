@@ -20,6 +20,8 @@ public class FileService {
             writer.write(files.getName() + "," + files.getBelongsTo() + "," + files.getShare());
             writer.write(System.lineSeparator());
             System.out.println("Successfully written to the file.");
+        Map<String, FileRecord> filesMap = new HashMap<>();
+
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file.");
             e.printStackTrace();
