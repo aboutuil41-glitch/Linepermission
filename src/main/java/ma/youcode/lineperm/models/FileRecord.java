@@ -17,6 +17,10 @@ public class FileRecord {
         return this;
     }
 
+    public void setShare(String[] share) {
+        Share = share;
+    }
+
     public String getName() {
         return name;
     }
