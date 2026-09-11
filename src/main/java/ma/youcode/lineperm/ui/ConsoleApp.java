@@ -63,7 +63,7 @@ public class ConsoleApp {
                 listFiles();
                 break;
             case "nano":
-                nano(words[1], user);
+                nano(words[1]);
                 break;
             case "cat":
                 cat(words[1]);
