@@ -36,7 +36,7 @@ public class UserService {
             while ((line = br.readLine()) != null) {
                 String[] splits = line.split(",");
                 User user = new User().setName(splits[0]).setPassword(splits[1]);
-                users.put(splits[0].trim().toLowerCase(), user);
+                users.put(user.getName(), user);
             }
 
         } catch (IOException e) {
