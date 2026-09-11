@@ -29,7 +29,7 @@ public class FileRecord {
         return belongsTo;
     }
 
-    public String getShare() {
+    public String[] getShare() {
         return Share;
     }
 }
