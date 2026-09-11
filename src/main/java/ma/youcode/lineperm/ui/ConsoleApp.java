@@ -125,7 +125,7 @@ public class ConsoleApp {
         }
     }
 
-    private void nano(String fileName, User user){
+    private void nano(String fileName){
         fileName = fileName.replace(".txt", "").trim();
         fileService.createFile(fileName, user);
 
