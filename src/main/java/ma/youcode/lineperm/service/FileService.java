@@ -68,8 +68,7 @@ public void loadFiles() {
     }
 
     public FileRecord findFile(String Name){
-        Map<String, FileRecord> files = loadFiles();
-        return files.get(Name.trim().toLowerCase());
+        return filesMap.get(Name.trim());
     }
 
     public void createFile(String name, User user){
