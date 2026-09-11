@@ -12,6 +12,7 @@ public class ConsoleApp {
     Scanner scanner = new Scanner(System.in);
     User user = null;
 
+
     public void startConsole(){
         System.out.println("==============================================");
         System.out.println("         Welcome To LinePermission!!          ");
