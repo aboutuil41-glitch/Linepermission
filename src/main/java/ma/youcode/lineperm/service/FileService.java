@@ -55,6 +55,7 @@ public void loadFiles() {
                 files.setShare(share);
             }
 
+            filesMap.put(splits[0].trim(), files);
         }
         return filesMap;
     }
