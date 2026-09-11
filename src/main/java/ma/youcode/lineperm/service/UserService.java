@@ -10,6 +10,8 @@ import org.mindrot.jbcrypt.BCrypt;
 
 
 public class UserService {
+        Map<String, User> users = new HashMap<>();
+
         public void saveUser(User user) {
         try (FileWriter writer = new FileWriter("C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\user.txt", true)) {
             writer.write(user.getName() + "," + user.getPassword());
