@@ -15,11 +15,6 @@ import ma.youcode.lineperm.models.FileRecord;
 import ma.youcode.lineperm.models.User;
 
 public class FileService {
-            public void saveFile(FileRecord files) {
-        try (FileWriter writer = new FileWriter("C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\files.txt", true)) {
-            writer.write(files.getName() + "," + files.getBelongsTo() + "," + files.getShare());
-            writer.write(System.lineSeparator());
-            System.out.println("Successfully written to the file.");
         Map<String, FileRecord> filesMap = new HashMap<>();
 
 
