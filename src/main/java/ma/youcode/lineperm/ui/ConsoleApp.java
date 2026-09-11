@@ -68,6 +68,12 @@ public class ConsoleApp {
             case "cat":
                 cat(words[1]);
                 break;
+            case "touch":
+                touch(words[1]);
+                break;
+            case "chmod":
+                chmod(words[2], words[1]);
+            break;
             case "help":
                 System.out.println("Commands: nano <file>.txt | ls | cat <file>.txt | logout | help");
                 break;
