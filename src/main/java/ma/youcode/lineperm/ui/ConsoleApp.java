@@ -153,6 +153,10 @@ public class ConsoleApp {
         fileName = fileName.replace(".txt", "").trim();
         fileService.createFile(fileName, user);
     }
+
+    private void chmod(String filename, String character){
+        filename = filename.replace(".txt", "").trim();
+        fileService.setPermission(filename, character, user);
     }
 
 }
