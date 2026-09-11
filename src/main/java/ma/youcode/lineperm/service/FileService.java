@@ -22,6 +22,16 @@ public class FileService {
             System.out.println("Successfully written to the file.");
         Map<String, FileRecord> filesMap = new HashMap<>();
 
+
+    public void saveAllFiles() {
+        try (FileWriter writer = new FileWriter(
+                "C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\files.txt", false)) { // false = overwrite, not append
+            for (FileRecord files : filesMap.values()) {
+                String[] share = files.getShare();
+                writer.write(files.getName() + "," + files.getBelongsTo() + "," + share[0] + share[1] + share[2]);
+                writer.write(System.lineSeparator());
+            }
+            System.out.println("Files saved.");
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file.");
             e.printStackTrace();
