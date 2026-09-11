@@ -38,21 +38,26 @@ public class FileService {
         }
     }
 
-    public Map<String, FileRecord> loadFiles() {
-        Map<String, FileRecord> filesMap = new HashMap<>();
-        // Specify the path to your file
-        String filePath = "C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\files.txt";
+public void loadFiles() {
+    String filePath = "C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\files.txt";
 
-        // Try-with-resources automatically closes the resources
-        try (FileReader fr = new FileReader(filePath);
-             BufferedReader br = new BufferedReader(fr)) {
+    try (FileReader fr = new FileReader(filePath);
+         BufferedReader br = new BufferedReader(fr)) {
 
-            String line;
-            // Read the file line by line until the end (null)
-            while ((line = br.readLine()) != null) {
-                String[] splits = line.split(",");
-                FileRecord files = new FileRecord().setName(splits[0]).setBelongsTo(splits[1]);
-                filesMap.put(splits[0].trim().toLowerCase(), files);
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] splits = line.split(",");
+            FileRecord files = new FileRecord()
+                    .setName(splits[0])
+                    .setBelongsTo(splits[1]);
+
+            if (splits.length > 2) {
+                String shareStr = splits[2].trim();
+                String[] share = new String[3];
+                for (int i = 0; i < 3; i++) {
+                    share[i] = String.valueOf(shareStr.charAt(i));
+                }
+                files.setShare(share);
             }
 
         } catch (IOException e) {
