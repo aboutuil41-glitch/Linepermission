@@ -5,7 +5,7 @@ import java.nio.file.Files;
 public class FileRecord {
     String name;
     String belongsTo;
-    String Share = "---";
+    String[] Share = {"-", "-", "-"};
 
     public FileRecord setBelongsTo(String belongsTo) {
         this.belongsTo = belongsTo;
