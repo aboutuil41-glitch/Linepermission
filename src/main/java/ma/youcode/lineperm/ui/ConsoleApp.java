@@ -148,6 +148,11 @@ public class ConsoleApp {
         }
         System.out.println("No Permission Granted");
     }
+
+    private void touch(String fileName){
+        fileName = fileName.replace(".txt", "").trim();
+        fileService.createFile(fileName, user);
+    }
     }
 
 }
