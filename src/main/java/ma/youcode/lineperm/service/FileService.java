@@ -145,6 +145,37 @@ public void loadFiles() {
             return false;
         }
     }
+
+    public void setPermission(String filename, String character, User user){
+        FileRecord file = findFile(filename);
+        if(file.getBelongsTo().equals(user.getName())){
+        String[] share = file.getShare();
+        if(character.equals("r")){
+            share[0] = "r";
+            saveAllFiles();
+            return ;
+        }
+        if(character.equals("w")){
+            share[1] = "w";
+            saveAllFiles();
+            return ;
+        }
+        if(character.equals("-r")){
+            share[0] = "-";
+            saveAllFiles();
+            return ;
+        }
+        if(character.equals("-w")){
+            share[1] = "-";
+            saveAllFiles();
+            return ;
+        }
+        System.out.println("Character Not Found");
+        return ;
+        }
+        System.out.println("Not Owner.");
+        return ;
+    }
     }
 
 
