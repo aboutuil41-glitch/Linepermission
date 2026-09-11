@@ -77,7 +77,8 @@ public void loadFiles() {
         try {
             Path newFile = Files.createFile(path);
             System.out.println("File created successfully at: " + newFile.toAbsolutePath());
-            saveFile(file);
+            filesMap.put(name.trim(), file); 
+            saveAllFiles();
         } catch (IOException e) {
             System.err.println("Failed to create file: " + e.getMessage());
         }
