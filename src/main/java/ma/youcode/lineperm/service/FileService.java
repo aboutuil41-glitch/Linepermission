@@ -113,6 +113,25 @@ public void loadFiles() {
         }
     }
 
+    // public void shareFile(FileRecord file, String character){
+    //   String[] current = file.getShare().split("|");
+
+    // }
+
+
+    public boolean CheckR(String fileName, User user){
+        FileRecord file = findFile(fileName);
+        String[] share = file.getShare();
+        if(file.getBelongsTo().equals(user.getName())){
+            return true;
+        }
+        else if(share[0].equals("r")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     }
 
 
