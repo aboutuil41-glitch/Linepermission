@@ -142,7 +142,12 @@ public class ConsoleApp {
 
     private void cat(String fileName){
         fileName = fileName.replace(".txt", "").trim();
-        fileService.readOutFile(fileName);
+        if(fileService.CheckR(fileName, user)){
+            fileService.readOutFile(fileName);
+            return ;
+        }
+        System.out.println("No Permission Granted");
+    }
     }
 
 }
