@@ -118,7 +118,7 @@ public class ConsoleApp {
     }
 
     private void listFiles(){
-        Map<String, FileRecord> allFiles = fileService.loadFiles();
+        Map<String, FileRecord> allFiles = fileService.getAll();
         for (FileRecord f : allFiles.values()) {
             System.out.println("rwd|" + f.getShare() + " " + f.getName() + " Owner : " + f.getBelongsTo());
         }
