@@ -23,8 +23,7 @@ public class UserService {
         }
     }
 
-    public Map<String, User> loadUser() {
-        Map<String, User> users = new HashMap<>();
+    public void loadUser() {
         // Specify the path to your file
         String filePath = "C:\\Users\\pc\\Documents\\java-bootcamp\\LinePermission\\src\\main\\resources\\user.txt";
 
