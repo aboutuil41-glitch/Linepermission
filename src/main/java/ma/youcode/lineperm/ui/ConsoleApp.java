@@ -94,6 +94,10 @@ public class ConsoleApp {
     private void login(){
         System.out.print("Login: ");
         String Login = scanner.nextLine();
+        if(Login == ""){
+            System.out.println("empty.");
+            return;
+        }
         System.out.print("Password: ");
         String Password = scanner.nextLine();
         user = service.login(Login, Password);
@@ -107,8 +111,16 @@ public class ConsoleApp {
     private void signup(){
         System.out.print("Enter Login Name: ");
         String Name = scanner.nextLine();
+        if(Name == ""){
+            System.out.println("empty.");
+            return;
+        }
         System.out.print("Enter Your Password: ");
         String NewPassword = scanner.nextLine();
+        if(Name == ""){
+            System.out.println("empty.");
+            return;
+        }
         service.createUser(Name, NewPassword);
     }
 

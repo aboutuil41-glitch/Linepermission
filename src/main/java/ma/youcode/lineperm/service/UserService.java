@@ -46,6 +46,7 @@ public class UserService {
 
 
     public void createUser(String Name, String Password){
+        
         String Hash = BCrypt.hashpw(Password, BCrypt.gensalt());
         User user = new User().setName(Name).setPassword(Hash);
         User Check = findByName(Name);
@@ -68,10 +69,10 @@ public class UserService {
     public User login(String Name, String Password){
         User user = findByName(Name);
         System.out.println(user.getName());
-        // if(user == null){
-        //     System.out.println("User Doesn't Exist!!");
-        //     return null;
-        // }
+        if(user == null){
+            System.out.println("User Doesn't Exist!!");
+            return null;
+        }
         boolean checkPassword = checkPassword(Password, user.getPassword());
 
         if (checkPassword) {

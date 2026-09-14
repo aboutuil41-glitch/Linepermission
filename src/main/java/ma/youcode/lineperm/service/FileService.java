@@ -119,62 +119,60 @@ public void loadFiles() {
     // }
 
 
-    public boolean CheckR(String fileName, User user){
-        FileRecord file = findFile(fileName);
-        String[] share = file.getShare();
-        if(file.getBelongsTo().equals(user.getName())){
-            return true;
+        public boolean CheckR(String fileName, User user){
+            FileRecord file = findFile(fileName);
+            String[] share = file.getShare();
+            if(file.getBelongsTo().equals(user.getName())){
+                return true;
+            }
+            else if(share[0].equals("r")){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
-        else if(share[0].equals("r")){
-            return true;
+        public boolean CheckW(String fileName, User user){
+            FileRecord file = findFile(fileName);
+            String[] share = file.getShare();
+            if(file.getBelongsTo().equals(user.getName())){
+                return true;
+            }
+            else if(share[1].equals("w")){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
-        else{
-            return false;
-        }
-    }
-    public boolean CheckW(String fileName, User user){
-        FileRecord file = findFile(fileName);
-        String[] share = file.getShare();
-        if(file.getBelongsTo().equals(user.getName())){
-            return true;
-        }
-        else if(share[1].equals("w")){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 
-    public void setPermission(String filename, String character, User user){
+    public void setPermission(String filename, String character, User user) {
         FileRecord file = findFile(filename);
-        if(file.getBelongsTo().equals(user.getName())){
+
+        if (!file.getBelongsTo().equals(user.getName())) {
+            System.out.println("Not Owner.");
+            return;
+        }
+
         String[] share = file.getShare();
-        if(character.equals("r")){
-            share[0] = "r";
-            saveAllFiles();
-            return ;
+        boolean remove = character.startsWith("-");
+
+        boolean hasR = character.contains("r");
+        boolean hasW = character.contains("w");
+
+        if (!hasR && !hasW) {
+            System.out.println("Character Not Found");
+            return;
         }
-        if(character.equals("w")){
-            share[1] = "w";
-            saveAllFiles();
-            return ;
+
+        if (hasR) {
+            share[0] = remove ? "-" : "r";
         }
-        if(character.equals("-r")){
-            share[0] = "-";
-            saveAllFiles();
-            return ;
+        if (hasW) {
+            share[1] = remove ? "-" : "w";
         }
-        if(character.equals("-w")){
-            share[1] = "-";
-            saveAllFiles();
-            return ;
-        }
-        System.out.println("Character Not Found");
-        return ;
-        }
-        System.out.println("Not Owner.");
-        return ;
+
+        saveAllFiles();
     }
     }
 
