@@ -19,4 +19,31 @@ public class LogsService {
         }
     }
 
+    public void loadLogs() {
+        logs.clear();
+
+        try (FileReader fr = new FileReader(LOG_FILE);
+            BufferedReader br = new BufferedReader(fr)) {
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] splits = line.split(";");
+
+                Logs log = new Logs();
+                log.setDate(LocalDate.parse(splits[0]));
+                log.setTime(LocalTime.parse(splits[1]));
+                log.setUser(splits[2]);
+                log.setAction(Logs.LogsType.valueOf(splits[3].toUpperCase()));
+                splits[4].replace(".txt", "").trim();
+                log.setFile(splits[4].replace(".txt", "").trim());
+                log.setResult(Logs.Status.valueOf(splits[5].toUpperCase()));
+    
+                logs.add(log);
+
+            }
+
+    } catch (IOException e) {
+        System.err.println("An error occurred while reading the file: " + e.getMessage());
+    }
+}
 }
