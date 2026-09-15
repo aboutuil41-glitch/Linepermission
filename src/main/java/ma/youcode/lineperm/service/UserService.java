@@ -70,7 +70,6 @@ public class UserService {
 
     public User login(String Name, String Password){
         User user = findByName(Name);
-        System.out.println(user.getName());
 
         if(user == null){
             System.out.println("User Doesn't Exist!!");
