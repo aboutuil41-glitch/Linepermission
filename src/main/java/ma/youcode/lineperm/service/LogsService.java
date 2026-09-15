@@ -65,4 +65,9 @@ public class LogsService {
 
     
 
+    public List<Logs> AllLogs(){
+        loadLogs();
+        return logs;
+    }
+
 }
