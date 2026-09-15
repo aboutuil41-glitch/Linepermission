@@ -80,6 +80,10 @@ public class ConsoleApp {
             break;
             case "help":
                 System.out.println("Commands: nano <file>.txt | ls | cat <file>.txt | logout | help");
+                System.out.println("Commands: nano <file>.txt | ls | cat <file>.txt | logout | stats | help");
+                break;
+            case "stats":
+                showStatsMenu();
                 break;
             default:
                 System.out.println("Doesn't Exist Type 'help' for help");
