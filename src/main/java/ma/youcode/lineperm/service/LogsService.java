@@ -46,4 +46,23 @@ public class LogsService {
         System.err.println("An error occurred while reading the file: " + e.getMessage());
     }
 }
+
+
+    public void logAction(User currentUser, Logs.LogsType action, String filename, Logs.Status status){
+        loadLogs();
+
+        Logs log = new Logs();
+        log.setDate(LocalDate.now());
+        log.setTime(LocalTime.now());
+        log.setUser(currentUser.getName());
+        log.setAction(action);
+        log.setFile(filename);
+        log.setResult(status);
+
+        logs.add(log);
+        saveAllLogs();
+    }
+
+    
+
 }
