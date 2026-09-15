@@ -1,4 +1,19 @@
 package ma.youcode.lineperm.service;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+import ma.youcode.lineperm.models.FileRecord;
+import ma.youcode.lineperm.models.Logs;
+import ma.youcode.lineperm.models.User;
+
 public class LogsService {
     List<Logs> logs = new ArrayList<>();
 
