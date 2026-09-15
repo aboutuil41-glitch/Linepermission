@@ -171,4 +171,58 @@ public class ConsoleApp {
         fileService.setPermission(filename, character, user);
     }
 
+
+    private void showStatsMenu(){
+        analyzer = new LogsAnalyzer(logsService.AllLogs());
+    while(true){
+        System.out.println("=== LogAnalyzer ===");
+        System.out.println("1) Total number of actions");
+        System.out.println("2) Number of refused accesses");
+        System.out.println("3) Distinct users");
+        System.out.println("4) Actions per user");
+        System.out.println("5) Top 3 accessed files");
+        System.out.println("6) Refused accesses for a user");
+        System.out.println("7) Most active user");
+        System.out.println("8) Action breakdown by type");
+        System.out.println("0) Quit");
+        System.out.print("Choice: ");
+        String choice = scanner.nextLine().trim();
+
+        switch(choice){
+            case "1":
+                System.out.println("Total: " + analyzer.totalAction());
+                break;
+            case "2":
+                System.out.println("Refused accesses: " + analyzer.totalRefuse());
+                break;
+            case "3":
+                System.out.println("Distinct users: " + analyzer.distinct());
+                break;
+            case "4":
+                System.out.println("Actions per user: " + analyzer.userAction());
+                break;
+            case "5":
+                System.out.println("Top 3 files: " + analyzer.Top3Files());
+                break;
+            case "6":
+                System.out.print("Username: ");
+                String name = scanner.nextLine().trim();
+                System.out.println("Refused accesses for " + name + ": " + analyzer.RefusedByUser(name));
+                break;
+            case "7":
+                System.out.println("Most active user: " + analyzer.MostActive());
+                break;
+            case "8":
+                System.out.println("Breakdown: " + analyzer.ActionCount());
+                break;
+            case "0":
+                return;
+            default:
+                System.out.println("Invalid choice");
+        }
+    }
+}
+
+
+
 }
