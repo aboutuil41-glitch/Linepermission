@@ -12,10 +12,16 @@ import java.util.List;
 import java.util.Map;
 
 import ma.youcode.lineperm.models.FileRecord;
+import ma.youcode.lineperm.models.Logs;
 import ma.youcode.lineperm.models.User;
 
 public class FileService {
         Map<String, FileRecord> filesMap = new HashMap<>();
+        LogsService log;
+
+        public FileService(LogsService logsService) {
+            this.log = logsService;
+        }
 
 
     public void saveAllFiles() {
@@ -123,25 +129,32 @@ public void loadFiles() {
             FileRecord file = findFile(fileName);
             String[] share = file.getShare();
             if(file.getBelongsTo().equals(user.getName())){
+                log.logAction(user, Logs.LogsType.READ, fileName, Logs.Status.OK);
                 return true;
             }
             else if(share[0].equals("r")){
-                return true;
+            log.logAction(user, Logs.LogsType.READ, fileName, Logs.Status.OK);
+            return true;
             }
             else{
+                log.logAction(user, Logs.LogsType.READ, fileName, Logs.Status.REFUSE);
                 return false;
             }
         }
+        
         public boolean CheckW(String fileName, User user){
             FileRecord file = findFile(fileName);
             String[] share = file.getShare();
             if(file.getBelongsTo().equals(user.getName())){
+                log.logAction(user, Logs.LogsType.WRITE, fileName, Logs.Status.OK);
                 return true;
             }
             else if(share[1].equals("w")){
+                log.logAction(user, Logs.LogsType.WRITE, fileName, Logs.Status.OK);
                 return true;
             }
             else{
+                log.logAction(user, Logs.LogsType.WRITE, fileName, Logs.Status.REFUSE);
                 return false;
             }
         }
@@ -175,6 +188,3 @@ public void loadFiles() {
         saveAllFiles();
     }
     }
-
-
-
