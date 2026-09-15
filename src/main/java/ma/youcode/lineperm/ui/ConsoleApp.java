@@ -1,16 +1,24 @@
 package ma.youcode.lineperm.ui;
 import ma.youcode.lineperm.service.UserService;
 import ma.youcode.lineperm.service.FileService;
+import ma.youcode.lineperm.service.LogsAnalyzer;
+import ma.youcode.lineperm.service.LogsService;
 import ma.youcode.lineperm.models.User;
 import ma.youcode.lineperm.models.FileRecord;
+import ma.youcode.lineperm.models.Logs;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 public class ConsoleApp {
 
     UserService service = new UserService();
-    FileService fileService = new FileService();
+    LogsService logsService = new LogsService();
+    FileService fileService = new FileService(logsService);
     Scanner scanner = new Scanner(System.in);
     User user = null;
+    LogsAnalyzer analyzer;
 
 
     public void startConsole(){
@@ -21,6 +29,7 @@ public class ConsoleApp {
 
         service.loadUser();
         fileService.loadFiles();
+        logsService.loadLogs();
 
         while(true){
             System.out.print(prompt());
@@ -79,7 +88,6 @@ public class ConsoleApp {
                 chmod(words[2], words[1]);
             break;
             case "help":
-                System.out.println("Commands: nano <file>.txt | ls | cat <file>.txt | logout | help");
                 System.out.println("Commands: nano <file>.txt | ls | cat <file>.txt | logout | stats | help");
                 break;
             case "stats":
@@ -92,7 +100,7 @@ public class ConsoleApp {
     }
 
     private boolean needsLogin(String command){
-        return !(command.equals("login") || command.equals("signup") || command.equals("exit"));
+        return !(command.equals("login") || command.equals("signup") || command.equals("exit") || command.equals("stats"));
     }
 
     private void login(){
