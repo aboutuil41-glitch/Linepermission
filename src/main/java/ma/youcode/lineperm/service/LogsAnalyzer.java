@@ -32,15 +32,21 @@ public class LogsAnalyzer {
       }
 
       public List<String> Top3Files(){
-        return logsList.stream().collect(Collectors.groupingBy(l -> l.getFile(), Collectors.counting())).entrySet().stream().sorted(Map.Entry.<String, Long>comparingByValue().reversed()).limit(3).map(Map.Entry :: getKey).collect(Collectors.toList());
+        return logsList.stream().collect(Collectors.groupingBy(l -> l.getFile(), Collectors.counting()))
+        .entrySet().stream()
+        .sorted(Map.Entry.<String, Long>comparingByValue().reversed()).limit(3)
+        .map(Map.Entry :: getKey).collect(Collectors.toList());
       }
 
       public long RefusedByUser(String username){
-        return logsList.stream().filter(l -> l.getUser().equals(username)).filter(l -> l.getResult() == Logs.Status.REFUSE).count();
+        return logsList.stream().filter(l -> l.getUser().equals(username))
+        .filter(l -> l.getResult() == Logs.Status.REFUSE).count();
       }
 
       public List<String> MostActive(){
-        return logsList.stream().collect(Collectors.groupingBy(l -> l.getUser(), Collectors.counting())).entrySet().stream().sorted(Map.Entry.<String, Long>comparingByValue().reversed()).limit(1).map(Map.Entry :: getKey).collect(Collectors.toList());
+        return logsList.stream().collect(Collectors.groupingBy(l -> l.getUser(), Collectors.counting()))
+        .entrySet().stream().sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+        .limit(1).map(Map.Entry :: getKey).collect(Collectors.toList());
       }
 
       public Map<Logs.LogsType, Long> ActionCount(){

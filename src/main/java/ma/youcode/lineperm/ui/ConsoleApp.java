@@ -58,6 +58,10 @@ public class ConsoleApp {
             System.out.println("You're already logged in...");
             return;
         }
+        if (user != null && (command.equals("stats"))) {
+            System.out.println("Access Denied.");
+            return;
+        }
 
         switch (command) {
             case "login":
