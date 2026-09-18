@@ -1,0 +1,8 @@
+# ignore the whole build output folder
+/target/
+
+# ignore specific runtime/data files
+src/main/resources/access.log
+src/main/resources/files.txt
+src/main/resources/user.txt
+src/main/resources/fileStorage/*.txt
