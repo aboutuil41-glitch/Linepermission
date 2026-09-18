@@ -24,7 +24,7 @@ public class LogsAnalyzer {
       }
 
       public List<String> distinct(){
-        return logsList.stream().map(l -> l.getUser()).distinct().collect(Collectors.toList());
+        return logsList.stream().map(l -> l.getUser()).distinct().toList();
       }
 
       public Map<String, Long> userAction(){
